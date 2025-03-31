@@ -29,8 +29,8 @@
       </div>
     </section>
     <section
-      class="viewer h-full relative flex flex-col justify-center items-center overflow-hidden bg-gray-100 shadow-xl shadow-inset"
-      style="scrollbar-color: var(--primary) hsl(355, 50%, 84%);scrollbar-gutter: stable;">
+      class="viewer h-full relative flex flex-col justify-center items-center overflow-hidden bg-gray-100 shadow-xl shadow-inset of-y-auto"
+      style="scrollbar-color: var(--primary) hsl(355, 50%, 84%);scrollbar-gutter: auto; overflow-y: auto;">
       <ul
         class="flex justify-center absolute top-20 text-4.5 font-bold text-[--primary] -translate-y-12 list-none z-10 p-0">
         <li class="scale-info text-nowrap text-gray-400 flex-1 min-w-20 text-center"></li>
@@ -40,7 +40,7 @@
       <canvas id="viewer"
         class="absolute top-20 m-0 hidden shadow-xl transition-transform duration-500 transition-property-all duration-200"></canvas>
       <div
-        class="controls fixed bottom-0 right-[21%] -translate-y-2.6 hidden mx-auto w-12 flex-col justify-between gap-4 p-4 mb-4 shadow-lg z-10 rounded-[3px]"
+        class="controls fixed hidden w-12 flex-col justify-between self-end bottom-2.5 gap-4 p-4 mb-4 mr-7 shadow-lg z-10 rounded-[3px]"
         style="background-color: hsla(0, 0%, 100%, 0.5);">
         <span class="flex flex-col gap-2">
           <h6 class="m-0 text-center text-4 text-[--primary]">zoom</h6>
