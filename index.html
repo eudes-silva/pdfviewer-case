@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <link rel="shortcut icon" href="#">
+  <title>PDF Viewer</title>
+</head>
+
+<body>
+  <div class="h-[100%] overflow-hidden"
+    style="display: grid;grid-template-columns: 1fr 3fr 1fr;grid-template-rows: 1fr;">
+    <section class="flex shadow-xl z-20 p-2">
+      <div id="dropzone"
+        class="flex flex-col flex-gap-2 justify-center border-dashed border-gray-300 cursor-pointer w-[80%] h-[90%] m-auto p-7 b-rounded-[3px]">
+        <div>
+          <label for="pdf-input"
+            class="flex items-center justify-center flex-gap-2 font-size-5 p-4 b-rounded-[3px] cursor-pointer text-[var(--white)] bg-[var(--primary)] mb-3">
+            <input type="file" value="Upload a pdf file" id="pdf-input" accept="application/pdf" style="display:none;">
+            Upload
+            <span class="ti ti-upload"></span>
+          </label>
+          <p class="text-4.5 text-center text-[var(--primary)] m-0">or drag and drop a PDF file</p>
+        </div>
+      </div>
+    </section>
+    <section
+      class="viewer h-full relative flex flex-col justify-center items-center overflow-hidden bg-gray-100 shadow-xl shadow-inset"
+      style="scrollbar-color: var(--primary) hsl(355, 50%, 84%);scrollbar-gutter: stable;">
+      <ul
+        class="flex justify-center absolute top-20 text-4.5 font-bold text-[--primary] -translate-y-12 list-none z-10 p-0">
+        <li class="scale-info text-nowrap text-gray-400 flex-1 min-w-20 text-center"></li>
+        <li class="page-info text-nowrap flex-1 min-w-20 text-center"></li>
+        <li class="rotation-info text-nowrap text-gray-400 flex-1 min-w-20 text-center"></li>
+      </ul>
+      <canvas id="viewer"
+        class="absolute top-20 m-0 hidden shadow-xl transition-transform duration-500 transition-property-all duration-200"></canvas>
+      <div
+        class="controls fixed bottom-0 right-[21%] -translate-y-2.6 hidden mx-auto w-12 flex-col justify-between gap-4 p-4 mb-4 shadow-lg z-10 rounded-[3px]"
+        style="background-color: hsla(0, 0%, 100%, 0.5);">
+        <span class="flex flex-col gap-2">
+          <h6 class="m-0 text-center text-4 text-[--primary]">zoom</h6>
+          <button
+            class="relative zoom-in py-1.5 px-2 cursor-pointer border-1 border-solid border-[--primary] rounded-[3px] bg-transparent hover:bg-[--primary-bg] transition-property-colors duration-200">
+            <span class="ti ti-zoom-in text-[--primary] text-xl"></span>
+          </button>
+          <button
+            class="relative zoom-out py-1.5 px-2 cursor-pointer border-1 border-solid border-[--primary] rounded-[3px] bg-transparent hover:bg-[--primary-bg] transition-property-colors duration-200">
+            <span class="ti ti-zoom-out text-[--primary] text-xl"></span>
+          </button>
+          <button
+            class="relative zoom-reset py-1.5 px-2 cursor-pointer border-1 border-solid border-[--primary] rounded-[3px] bg-transparent hover:bg-[--primary-bg] transition-property-colors duration-200">
+            <span class="ti ti-zoom-reset text-[--primary] text-xl"></span>
+          </button>
+        </span>
+        <span class="flex flex-col gap-2">
+          <h6 class="m-0 text-center text-4 text-[--primary]">rotate</h6>
+          <button
+            class="relative rotate py-1.5 px-2 cursor-pointer border-1 border-solid border-[--primary] rounded-[3px] bg-transparent hover:bg-[--primary-bg] transition-property-colors duration-200">
+            <span class="ti ti-rotate-clockwise text-[--primary] text-xl"></span>
+          </button>
+        </span>
+        <span class="flex flex-col gap-2">
+          <h6 class="m-0 text-center text-4 text-[--primary]">pages</h6>
+          <button
+            class="relative previous-page py-1.5 px-2 cursor-pointer border-1 border-solid border-[--primary] rounded-[3px] bg-transparent hover:bg-[--primary-bg] transition-property-colors duration-200">
+            <span class="ti ti-chevron-left text-[--primary] text-xl"></span>
+          </button>
+          <button
+            class="relative next-page py-1.5 px-2 cursor-pointer border-1 border-solid border-[--primary] rounded-[3px] bg-transparent hover:bg-[--primary-bg] transition-property-colors duration-200">
+            <span class="ti ti-chevron-right text-[--primary] text-xl"></span>
+          </button>
+        </span>
+      </div>
+    </section>
+    <section class="flex properties shadow-xl z-5 p-2">
+      <div
+        class="w-[80%] h-[90%] flex flex-col justify-center items-center border-2 border-solid border-[var(--primary-bg)] rounded-[3px] p-7 m-auto">
+        <div class="goto-page w-full hidden bg-[var(--primary)] b-rounded-[3px] mb-3">
+          <button
+            class="goto-page-btn flex-1 items-center justify-center text-5 p-4 border-none b-rounded-[3px] cursor-pointer text-[var(--white)] bg-transparent">Go
+            to page
+          </button>
+          <input type="text" name="page-number" id="page-number"
+            class="w-14 p-3 text-center bg-white border-1 border-solid border-[var(--primary)] rounded-r-[3px] text-5 text-[var(--primary)] font-bold focus:outline-none placeholder-gray-300">
+        </div>
+        <p class="filename h-4.5 text-4.5 text-center text-[var(--primary)] m-0">
+          <span class="text-5 text-gray-400">no file selected</span>
+        </p>
+      </div>
+    </section>
+  </div>
+  <script src=" https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

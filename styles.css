@@ -1,0 +1,26 @@
+:root {
+  --primary: hsl(355, 50%, 54%);
+  --primary-bg: hsla(355, 50%, 54%, 0.2);
+  --bg-base: hsl(0, 0%, 94%);
+  --font: 16px;
+  --black: hsl(0, 0%, 12%);
+  --white: hsl(48, 100%, 99%);
+}
+
+html {
+  height: 100%;
+  font-size: var(--font);
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+#dropzone.dragover {
+  border-color: var(--primary);
+  background-color: var(--primary-bg);
+}
